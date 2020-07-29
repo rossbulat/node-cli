@@ -20,7 +20,7 @@ const run = async () => {
   // check whether a token exists in configStore
   const token = auth.checkTokenExists()
 
-  let signedIn = false;
+  let signedIn = false
   if (token) {
 
     console.log(chalk.grey(`Authentication token found`))
@@ -29,7 +29,7 @@ const run = async () => {
     let spinner = ora({
       text: ` ${chalk.green('Validating token...')}`,
       prefixText: logSymbols.info,
-    }).start();
+    }).start()
 
     spinner.stop()
 
@@ -50,7 +50,7 @@ const run = async () => {
     spinner = ora({
       text: `${chalk.green('Authenticating...')}`,
       color: 'yellow',
-    }).start();
+    }).start()
 
     // validate credentials
     const signIn = await auth.handleSignIn(credentials)
@@ -62,9 +62,9 @@ const run = async () => {
       signedIn = true
 
       // ask to persist auth token
-      const keepSignedIn = await inquirer.keepSignedIn()
+      const { keepSignedIn } = await inquirer.keepSignedIn()
       if (keepSignedIn) {
-        auth.storeAuthToken(signIn.response.token);
+        auth.storeAuthToken(signIn.response.token)
       }
 
     } else {
@@ -98,4 +98,4 @@ const run = async () => {
   }
 }
 
-run();
+run()
