@@ -31,10 +31,13 @@ const run = async () => {
       prefixText: logSymbols.info,
     }).start()
 
+    // validate token
+    const validated = await auth.validateToken(token)
+
+    // stop spinner
     spinner.stop()
 
-    // validate token
-    if (await auth.validateToken(token)) {
+    if (validated) {
       signedIn = true
     } else {
       console.log(`\n${chalk.red('Could not validate token. Please sign in again')}`)
@@ -54,6 +57,7 @@ const run = async () => {
 
     // validate credentials
     const signIn = await auth.handleSignIn(credentials)
+
     spinner.stop()
 
     if (signIn.ack === 'success') {
